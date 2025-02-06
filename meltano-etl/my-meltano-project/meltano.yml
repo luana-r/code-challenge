@@ -13,7 +13,7 @@ plugins:
     config:
       files:
       - entity: order_details
-        path: ../data/
+        path: ../../data/
         keys: [order_id]
         delimiter: ','
   loaders:
