@@ -16,6 +16,18 @@ plugins:
         path: ../../data/
         keys: [order_id]
         delimiter: ','
+  - name: tap-postgres
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-postgres.git
+    config:
+      host: localhost
+      port: 5433
+      user: northwind_user
+      password: thewindisblowing
+      database: northwind
+      filter_schemas:
+      - public
+
   loaders:
   - name: target-csv
     variant: meltanolabs
