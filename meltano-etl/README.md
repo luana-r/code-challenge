@@ -1,6 +1,6 @@
 # Pipeline de dados com Meltano, Airflow e PostgreSQL #
 
-Este projeto visa contruir uma pipeline de dados utilizam as seguinte ferramentas: Apache Airflow, Meltano e Postgres. 
+Este projeto visa contruir uma pipeline de dados utilizando as seguinte ferramentas: Apache Airflow, Meltano e Postgres. 
 
 A pipeline possui duas etapas que podem ser realizadas separadamente.
 
