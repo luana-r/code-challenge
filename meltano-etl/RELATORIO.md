@@ -7,6 +7,8 @@ Além de rodar em containers, o planejamento inicial era executar a pipeline por
 fail ou success e indicar se os próximos comandos da pipe deveriam ser executados. Ou seja, com o script seria fácil implementar
 em cada tarefa um requisito "depends on" onde ela só é executada se a tarefa anterior for bem sucedida.
 
+Infelizmente não foi possível concluir o desafio como o planejado, o meltano não foi instalado no container e o a instalação do airflow não foi bem sucedida.
+
 ## As tarefas macros identificadas logo após o entendimento do desafio: ##
 
 `A pipeline deve ser capaz de subir dois banco de dados: source e destination`
