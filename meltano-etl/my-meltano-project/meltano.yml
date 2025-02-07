@@ -105,3 +105,17 @@ plugins:
       password: meltano
       database: warehouse
       default_target_schema: public
+  utilities:
+  - name: airflow
+    variant: apache
+    pip_url: git+https://github.com/meltano/airflow-ext.git@main apache-airflow==2.8.1
+      --constraint 
+      https://raw.githubusercontent.com/apache/airflow/constraints-2.8.1/constraints-no-providers-3.11.txt
+jobs:
+- name: setp1-csv-to-csv
+  tasks:
+  - tap-csv target-csv:run
+schedules:
+- name: daily-step1
+  interval: '@daily'
+  job: step1-csv-to-csv
