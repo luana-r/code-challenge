@@ -14,8 +14,65 @@ plugins:
       files:
       - entity: order_details
         path: ../../data/
+        keys: [order_id, product_id]
+        delimiter: ','
+  - name: tap-csv-step2
+    inherit_from: tap-csv
+    config:
+      files:
+      - entity: order_details
+        path: ../../local_data/csv/$DATE/
+        keys: [order_id, product_id]
+        delimiter: ','
+  - name: tap-postgres-to-csv-step2
+    inherit_from: tap-csv
+    config:
+      files:
+      - entity: employee_territories
+        path: ../../local_data/postgres/$DATE/public-employee_territories.csv
+        keys: [employee_id, territory_id]
+        delimiter: ','
+      - entity: orders
+        path: ../../local_data/postgres/$DATE/public-orders.csv
         keys: [order_id]
         delimiter: ','
+      - entity: customers
+        path: ../../local_data/postgres/$DATE/public-customers.csv
+        keys: [customer_id]
+        delimiter: ','
+      - entity: products
+        path: ../../local_data/postgres/$DATE/public-products.csv
+        keys: [product_id]
+        delimiter: ','
+      - entity: shippers
+        path: ../../local_data/postgres/$DATE/public-shippers.csv
+        keys: [shipper_id]
+        delimiter: ','
+      - entity: suppliers
+        path: ../../local_data/postgres/$DATE/public-suppliers.csv
+        keys: [supplier_id]
+        delimiter: ','
+      - entity: territories
+        path: ../../local_data/postgres/$DATE/public-territories.csv
+        keys: [territory_id]
+        delimiter: ','
+      - entity: us_states
+        path: ../../local_data/postgres/$DATE/public-us_states.csv
+        keys: [state_id]
+        delimiter: ','
+      - entity: categories
+        path: ../../local_data/postgres/$DATE/public-categories.csv
+        keys: [category_id]
+        delimiter: ','
+      - entity: region
+        path: ../../local_data/postgres/$DATE/public-region.csv
+        keys: [region_id]
+        delimiter: ','
+      - entity: employees
+        path: ../../local_data/postgres/$DATE/public-employees.csv
+        keys: [employee_id]
+        delimiter: ','
+
   - name: tap-postgres
     variant: meltanolabs
     pip_url: git+https://github.com/MeltanoLabs/tap-postgres.git
@@ -33,5 +90,18 @@ plugins:
     variant: meltanolabs
     pip_url: git+https://github.com/MeltanoLabs/target-csv.git
     config:
-      destination_path: ./output
-      file_naming_scheme: '{stream_name}-{datestamp}.csv'
+      destination_path: ../../local_data/csv/$DATE/
+  - name: target-postgres-to-csv
+    inherit_from: target-csv
+    config:
+      destination_path: ../../local_data/postgres/$DATE/
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      host: localhost
+      port: 5434
+      user: meltano
+      password: meltano
+      database: warehouse
+      default_target_schema: public
